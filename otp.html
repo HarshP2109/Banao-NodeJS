@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP VERIFICATION</title>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: rgb(0, 0, 0);
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .code-container {
+        background-color: #fff;
+        padding: 20px;
+        align-items: center;
+        max-width: 1000px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 5px 5px 10px rgba(100, 101, 100, 0.5);
+    }
+
+    .code {
+        font-size: 35px;
+        padding: 0;
+        width: 50x;
+        height: 80px;
+        text-align: center;
+        border: 1px solid #eee;
+        margin: 1%;
+        font-weight: 300;
+        border-radius: 5px;
+    }
+
+    .code::-webkit-outer-spin-button,
+    .code::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .code:valid {
+        box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.3);
+    }
+
+    .info {
+        background-color: #eee;
+        color: #777;
+        display: inline-block;
+        max-width: 300px;
+        padding: 5px;
+        margin-top: 10px;
+        line-height: 20px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 500px) {
+        .code-container {
+            flex-wrap: wrap;
+        }
+
+        .code {
+            font-size: 20px;
+            height: 60px;
+            max-width: 70px;
+        }
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap");
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: rgb(0, 0, 0);
+        margin: 0px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .code-container {
+        background-color: #fff;
+        padding: 20px;
+        align-items: center;
+        max-width: 1000px;
+        border: 1px solid #000;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 5px 5px 10px rgba(100, 101, 100, 0.5);
+    }
+
+    .main-div {
+        animation: main-load 400ms ease-in;
+    }
+
+    @keyframes main-load {
+        0% {
+            transform: translateY(-100px);
+            opacity: 0;
+
+        }
+
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+
+        }
+    }
+
+    .code {
+        font-size: 35px;
+        padding: 0;
+        width: 50x;
+        height: 80px;
+        text-align: center;
+        border: 1px solid #eee;
+        margin: 1%;
+        font-weight: 300;
+        border-radius: 5px;
+    }
+
+    .code::-webkit-outer-spin-button,
+    .code::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .code:valid {
+        border-color: #3498db;
+        box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.3);
+    }
+
+    .info {
+        background-color: #eee;
+        color: #777;
+        display: inline-block;
+        max-width: 300px;
+        padding: 5px;
+        margin-top: 10px;
+        line-height: 20px;
+        border-radius: 5px;
+    }
+
+    @media (max-width: 500px) {
+        .code-container {
+            flex-wrap: wrap;
+        }
+
+        .code {
+            font-size: 20px;
+            height: 60px;
+            max-width: 70px;
+        }
+    }
+
+
+    #timer {
+            font-size: 24px;
+            color: #333;
+            font-size: medium;
+        }
+
+        #resend{
+            color: #3498db;
+            font-size: medium;
+        }
+</style>
+
+<script>
+console.log("Script is running");
+localStorage.removeItem("PASSWORD");
+
+</script>
+
+<body>
+    <div class="main-div">
+        <div class="code-container">
+            <h2>Verify Your account by OTP</h2>
+            <p>
+                We messaged 5 digit one time password to your registered Mobile number
+            </p>
+        <form action="/otpverify" method="post" id="otpForm">
+            <input type="number" class="code" min="0" max="9" name="ek" placeholder="0" maxlength="1" required/>
+            <input type="number" class="code" min="0" max="9" name="do" placeholder="0" maxlength="1" required/>
+            <input type="number" class="code" min="0" max="9" name="teen" placeholder="0" maxlength="1" required/>
+            <input type="number" class="code" min="0" max="9" name="char" placeholder="0" maxlength="1" required/>
+            <input type="number" class="code" min="0" max="9" name="paanch" placeholder="0" maxlength="1" required id="lastInput"/>
+            <br />
+            <small class="info">This one time password is valid of single time use
+            </small>
+            <button id="timer" type="submit"><span id="resend">Submit</span></button>
+        </form>
+        </div>
+
+    </div>
+
+    <script >
+        const codes = document.querySelectorAll('.code')
+
+        codes[0].focus()
+
+        codes.forEach((code, indx) => {
+            code.addEventListener('keydown', (e) => {
+                if (e.key >= 0 && e.key <= 9) {
+                    codes[indx].value = ''
+                    setTimeout(() => codes[indx + 1].focus(), 10)
+                } else if (e.key === 'Backspace') {
+                    setTimeout(() => codes[indx - 1].focus(), 10)
+                }
+            })
+        })
+
+        const inputs = document.getElementsByClassName("code");
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('keydown', function (event) {
+                if (event.keyCode === 37 && i > 0) {
+                    inputs[i - 1].focus();
+                } else if (event.keyCode === 39 && i < inputs.length - 1) {
+                    inputs[i + 1].focus();
+                }
+            });
+        }
+
+        //timer
+        // Function to start the timer
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                    // You can add a callback function here for what to do when the timer reaches zero
+                }
+            }, 1000);
+        }
+
+        // Function to start the 2-minute timer when the page loads
+        window.onload = function () {
+            const twoMinutes = 120;
+            const display = document.querySelector('#timer');
+            startTimer(twoMinutes, display);
+        };
+
+        const lastInput = document.getElementById('lastInput');
+        const otpForm = document.getElementById('otpForm');
+
+        lastInput.addEventListener('input', function() {
+            if (lastInput.value.length === parseInt(lastInput.getAttribute('maxlength'))) {
+                otpForm.submit();
+            }
+        });
+
+    </script>
+</body>
+<script>
+
+</script>
+
+</html>
